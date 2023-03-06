@@ -1,24 +1,24 @@
 import java.util.Scanner;
 import java.util.LinkedList;
 
+//Goal: detect whether or not two String inputs are anagrams of each other
 public class AnagramDetector {
-	//Goal: detect whether or not two String inputs are anagrams of each other
-
 	private static Scanner keyboard = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		boolean cont = true;
+		
 		while (cont) {
 			
+			//get user input
 			System.out.println("Enter a word:");
 			String word1 = keyboard.nextLine().toLowerCase();
 			
 			System.out.println("Enter another word:");
 			String word2 = keyboard.nextLine().toLowerCase();
-			boolean isAnagram;
 			
-			isAnagram =	detectAnagram(word1, word2);
+			boolean isAnagram = detectAnagram(word1, word2);
+			
 			if (isAnagram)
 				System.out.println("Yes, the two words are anagrams.");
 			else
@@ -26,12 +26,13 @@ public class AnagramDetector {
 			
 			System.out.println("Continue? (Enter y for yes)");
 			char userChoice = keyboard.next().charAt(0);
+			
 			if (userChoice != 'y')
 				cont = false;
+			
 			keyboard.nextLine();
 		}
 		System.out.println("Goodbye.");
-
 	}
 	
 	private static boolean detectAnagram(String word1, String word2) {
@@ -45,23 +46,21 @@ public class AnagramDetector {
 		LinkedList<Character> list1 = new LinkedList<>();
 		LinkedList<Character> list2 = new LinkedList<>();
 		
-		
-		
+		//write each word to its own Linked List
 		for (int i = 0; i < len1; i++) {
 			list1.add(word1.charAt(i));
 			list2.add(word2.charAt(i));
 		}
 		
+		//iterate through 1st word, if 2nd word contains same char, remove char from 2nd word 
 		for(int i = 0; i < len1; i++) {
-			Character curChar = new Character(word2.charAt(i));
-			if (list1.contains(word2.charAt(i))) {
+			if (list1.contains(word2.charAt(i))) 
 				list2.removeFirst();
-			}
-			else {
+			else 
 				return false;
-			}
 		}
 		
+		//if all chars were removed, then must be anagram
 		if (list2.size() == 0) {
 			return true;
 		}
@@ -69,5 +68,4 @@ public class AnagramDetector {
 			return false;
 		}
 	}
-
 }
